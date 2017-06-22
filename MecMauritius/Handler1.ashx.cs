@@ -61,7 +61,8 @@ namespace MecMauritius
                     string emailId = System.Web.HttpContext.Current.User.Identity.Name.ToString();
 
                     string type = getResourceType(extension);
-                    if (type.Equals("E-Books") || type.Equals("Word") || type.Equals("Excel") || type.Equals("Powerpoint") || type.Equals("PDF"))
+                    if (type.Equals("E-Books") || type.Equals("Word") || type.Equals("Excel") || type.Equals("Powerpoint") || type.Equals("PDF")
+                            || type.Equals("Epub") || type.Equals("Apk"))
                         type = "E-Books";
                     
                     // Check for uploading of duplicate resources
@@ -214,6 +215,14 @@ namespace MecMauritius
                     thumbnailURI = new Uri("https://miemecstorage.blob.core.windows.net/mecmauritius/word.png", UriKind.Absolute);
 
                 }
+                else if (getResourceType(extension).Equals("Epub"))
+                {
+                    thumbnailURI = new Uri("https://miemecstorage.blob.core.windows.net/mecmauritius/epub.png", UriKind.Absolute);
+                }
+                else if (getResourceType(extension).Equals("Apk"))
+                {
+                    thumbnailURI = new Uri("https://miemecstorage.blob.core.windows.net/mecmauritius/apk.png", UriKind.Absolute);
+                }
                 else if (getResourceType(extension).Equals("Excel"))
                 {
 
@@ -256,6 +265,8 @@ namespace MecMauritius
             String[] videoList = new[] {".3gp", ".asf", ".avi", ".flv", ".mov", ".mp4", ".mpg", ".vob", ".wmv" };
             String[] docList = new[] { ".log", ".msg", ".odt", ".pages", ".rtf", ".txt", ".tex", ".wpd", ".wps", ".pps", ".xlr", };
             String[] pdfList = new[] { ".pdf" };
+            String[] apkList = new[] { ".apk" };
+            String[] epubList = new[] { ".epub" };
             String[] wordList = new[] { ".doc", ".docx" };
             String[] excelList = new[] { ".xls", ".xlsx" };
             String[] pptList = new[] { ".ppt", ".pptx" };
@@ -283,6 +294,10 @@ namespace MecMauritius
                 return "Ubz";
             else if ((flashList).Contains(extension))
                 return "Flash";
+            else if ((apkList).Contains(extension))
+                return "Apk";
+            else if ((epubList).Contains(extension))
+                return "Epub";
             else
                 return "Others";
         }
