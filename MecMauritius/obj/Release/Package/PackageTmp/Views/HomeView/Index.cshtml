@@ -1,0 +1,90 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "MauTeach";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MauTeach</title>
+</head>
+<body>
+
+
+    @*<div class="container">
+        <div class="jumbotron">
+            <h1>Introduction</h1>
+            <p class="lead">
+                MauTeach connects stakeholders of the education sector. Educators and teacher
+                educators can share, create and collaborate on this platform.
+            </p>
+            <p><a href="http://www.mie.ac.mu/" class="btn btn-primary btn-lg">Visit Website &#187;</a></p>
+        </div>
+    </div>*@
+
+    <div class="container">
+        <div class="jumbotron">
+            <video id="mie-banner" width="1280" height="490" preload="auto" autoplay="autoplay" muted="muted" loop="loop">
+                <source src="~/Content/demo.mp4" type="video/mp4"/>
+            </video>
+        </div>
+    </div>
+
+    <div class="container body-content">
+
+        <div class="row">
+            <div class="col-md-4">
+                <video src="https://mlxstorage.blob.core.windows.net/mec-v2/MECIntroVideo.mp4" preload="none" controls="controls" style="width:100%" poster="http://mlxstorage.blob.core.windows.net/mec-v2/MecIntroVideoPoster.jpg"></video>
+            </div>
+            <div class="col-md-8">
+                <p class="lead">
+                    Introduction
+                </p>
+                <hr />
+                <p>
+                    MauTeach connects stakeholders of the education sector. Educators and teacher
+                    educators can share, create and collaborate on this platform.
+                </p>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Primary</h2>
+                <p>
+                    The primary sector page hosts an educators' network that helps educators interact, collaborate
+                    and provides them with numerous tools to enhance learning in their classrooms.
+                </p>
+                <p><a href="#" class="btn btn-default">Learn more &raquo</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Repository of Resources</h2>
+                <p>
+                    The Primary digital resources at the MIE include different educational interactivities available
+                    in different formats. Each resource includes a learning statement, which provides a description of
+                    the resource, and include ideas for classroom use. These resources have been created and collected
+                    by Centre for Open and Distance Learning, Mauritius Institute of Education.
+                </p>
+                <p><a href="#" class="btn btn-default">Learn more &raquo</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Online Courses</h2>
+                <p>
+                    Online courses is a section dedicated to MIE courses for teacher education. This section gives access
+                    to the Eteach and the Elearn platforms. Only users with login and passwords can access this space.
+                    Contact your lecturer or the CODL for more information.
+                </p>
+                <p><a href="#" class="btn btn-default">Learn more &raquo</a></p>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+</html>

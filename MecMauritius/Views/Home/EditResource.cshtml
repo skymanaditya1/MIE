@@ -1,0 +1,171 @@
+@model IEnumerable<MecMauritius.Models.ResourceEdit>
+
+<style type="text/css">
+    /* Dropdown Button */
+    .dropbtn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+        /* Dropdown button on hover & focus */
+        .dropbtn:hover, .dropbtn:focus {
+            background-color: #3e8e41;
+        }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+            /* Change color of dropdown links on hover */
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+            }
+
+    /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+    .show {
+        display: block;
+    }
+</style>
+
+<h1>Please edit the fields that you want to change!</h1>
+@using (Html.BeginForm("UpdateResourceDetails", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    foreach (var resource in ViewBag.EditedResource)
+    {
+        <div>
+            <input type="hidden" name="resourceID" value="@resource.ResourceID" />
+        </div>
+        <div>
+            <input type="hidden" name="chosenGrade" id="myGrade" value="@resource.Grade" />
+        </div>
+        <div>
+            <input type="hidden" name="chosenCourse" id="myCourse" value="@resource.Subject" />
+        </div>
+        <div>
+            <input type="hidden" name="url" value="@resource.Thumbnail" />
+        </div>
+        <div>
+            <label>
+                Resource Title :
+            </label>
+            <input type="text" id="title" name="title" value="@resource.Title" />
+        </div><br />
+        <div>
+            <label>
+                Resource Description :
+            </label>
+            <input type="text" id="description" name="description" size="50" maxlength="255" value="@resource.Description" />
+        </div><br />
+        <div>
+            <label>Grade : </label>
+            <div class="dropdown">
+                <button id="GradeButton" name="gradeChosen" class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    @resource.Grade
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" id="GradeList">
+                    <li><a>Select Grade</a></li>
+                    @foreach (var grade in ViewBag.Grades)
+                    {
+                        <li><a>@grade.Title</a></li>
+                    }
+                </ul>
+            </div>
+        </div><br />
+        <div>
+            <label>Subject : </label>
+            <div class="dropdown">
+                <button id="CourseButton" name="courseChosen" class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    @resource.Subject
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" id="CourseList">
+                    <li><a>Select Course</a></li>
+                    @foreach (var course in ViewBag.Courses)
+                    {
+                        <li><a>@course.Title</a></li>
+                    }
+                </ul>
+            </div>
+        </div><br />
+        <div>
+            <label>Upload Thumbnail Image : </label>
+            <input type="file" id="thumbnailUpload" name="thumbnailUpload" accept="image/*"/>
+        </div><br />
+        <div>
+            <input type="submit" value="Update Resource Details" />
+        </div>
+    }
+}
+<script>
+
+    $('#GradeList li').on('click', function () {
+        $("#GradeButton").html($(this).text());
+        grade = $(this).text();
+        // $("chosenGrade").html($(this).text());
+        document.getElementById('myGrade').value = grade;
+    });
+
+    $('#CourseList li').on('click', function () {
+        $("#CourseButton").html($(this).text());
+        course = $(this).text();
+        // $("chosenCourse").html($(this).text());
+        document.getElementById('myCourse').value = course;
+    });
+
+    // jQuery code to upload thumbnails
+    $(document).ready(function () {
+        $("#btnUpload").click(function () {
+            if (window.FormData != undefined) {
+                var fileUpload = $("#fileUpload").get(0);
+                var file = fileUpload.files[0];
+
+                var fileData = new FormData();
+                fileData.append(file.name, file);
+
+                $.ajax({
+                    url: '/Home/Upload',
+                    type: 'POST',
+                    contentType: false,
+                    processData: false,
+                    data: fileData,
+                    success: function (result) {
+                        alert(result);
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                    }
+                });
+            } else {
+                alert("FormData is not supported");
+            }
+        });
+    });
+</script>
+<script>
+    var grade = @ViewBag.EditedResource[0].Grade;
+    var course = @ViewBag.EditedResource[0].Subject;
+</script>

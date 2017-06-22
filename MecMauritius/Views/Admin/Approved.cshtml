@@ -1,0 +1,89 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<h2>Manage Educators</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Zone
+        </th>
+        <th>
+            School
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+    @foreach (var user in ViewBag.Users)
+    {
+        <tr>
+            <td>
+                @user.Name
+            </td>
+            <td>
+                @user.Email
+            </td>
+            <td>
+                @user.Zone
+            </td>
+            <td>
+                @user.School
+            </td>
+            <td id="@user.Id">
+                @if (@user.Permission == 1 || @user.Permission == -1)
+                {<a class="btn btn-success" onclick="fillform('@user.Id',0)">Approve</a>}
+
+                @if (@user.Permission == 0 || @user.Permission == -1)
+                {<a class="btn btn-danger" onclick="fillform('@user.Id',1)">Decline</a>}
+            </td>
+        </tr>
+    }
+
+
+</table>
+
+<script type="text/javascript">
+
+
+    function fillform(userId, approval) {
+
+
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("UpdateEducatorApprovals")',
+            dataType: 'json',
+            data: {
+                userId: userId, approval: approval
+            },
+            success: function (data) {
+
+
+                if (approval == 0)
+                    $("#" + userId).html("<a class='btn btn-danger' onclick='fillform(\"" + userId + "\",1)'>Decline</a>");
+                    //$("#" + userId).html(userId);
+                else if(approval == 1)
+                    $("#" + userId).html("<a class='btn btn-success' onclick='fillform(\"" + userId + "\",0)'>Approve</a>");
+                // $("#" + userId).html(userId);
+
+            },
+            error: function (e) {
+                alert("Message : " + e.ToString());
+            }
+        });
+
+        return false;
+    }
+
+
+
+</script>

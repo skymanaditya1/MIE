@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<h2>Previously Declined</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Username
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var user in ViewBag.Users)
+    {
+        <tr>
+            <td>
+                @user.Email
+            </td>
+            <td id="@user.Id">
+                <a onclick="fillform('@user.Id',0)">Approve</a>
+            </td>
+        </tr>
+    }
+
+
+
+
+</table>
+
+
+<script type="text/javascript">
+
+
+    function fillform(userId, approval) {
+
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("getUsers")',
+            dataType: 'json',
+            data: {
+                uId: userId, app: approval
+            },
+            success: function (data) {
+
+                $("#" + userId).html(data);
+
+
+
+            },
+            error: function (e) {
+                alert("Message : " + e.ToString());
+            }
+        });
+
+        return false;
+    }
+
+
+
+</script>
+
+
+
+
+
+

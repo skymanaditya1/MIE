@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "Upload Resource";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upload Resource</title>
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/resource-space.css" rel="stylesheet" />
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Upload Space</h1>
+            <p class="lead">
+                Upload all your digital resources here.
+            </p>
+        </div>
+    </div>
+
+    <div class="container body-content">
+
+
+
+        @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <table cellspacing="2" cellpadding="2">
+                <tr>
+                    <td>Choose from the drop down options :</td>
+                    <td>@Html.DropDownList("GradeType", null, new { @class = "gradedropdown" })</td>
+                    <td>@Html.DropDownList("SubjectType", null, new { @class = "gradedropdown" })</td>
+                    <td>@Html.DropDownList("ResourceType", null, new { @class = "gradedropdown" })</td>
+
+                </tr>
+            </table>
+            <br />
+            <span class="btn btn-success fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Add files...</span>
+                <span class="inputWrapper">
+                    <input class="fileInput" type="file" name="file" id="file" />
+                </span>
+            </span>
+
+            <button type="submit" class="btn btn-primary start" value="Upload">
+                <i class="glyphicon glyphicon-upload"></i>
+                <span>Start upload</span>
+            </button>
+            <!--<input type="file" name="file" id="file" />-->
+            <!--<input type="submit" name="submit" value="Upload" />-->
+        }
+
+
+    </div>
+</body>
+</html>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+    $(function () {
+        $(".inputWrapper").mousedown(function () {
+            var button = $(this);
+            button.addClass('clicked');
+            setTimeout(function () {
+                button.removeClass('clicked');
+            }, 50);
+        });
+    });
+
+</script>

@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Shop Item - Start Bootstrap Template</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/shop-item.css" rel="stylesheet">
+    @*<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">*@
+    <link rel="stylesheet" type="text/css" href="~/css/starability-minified/starability-checkmark.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/StarRating/css/star-rating.css" media="all" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="~/Content/StarRating/js/star-rating.js" type="text/javascript"></script>
+
+
+
+    <style type="text/css">
+        .animated {
+            -webkit-transition: height 0.2s;
+            -moz-transition: height 0.2s;
+            transition: height 0.2s;
+        }
+
+        .stars {
+            margin: 20px 0;
+            font-size: 24px;
+            color: #d17581;
+        }
+    </style>
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <!-- Navigation -->
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-9">
+                <div class="thumbnail">
+                    @foreach (var resource in ViewBag.ResourcesDisplayed)
+                    {
+                        <img class="img-responsive" src="@Url.Content(resource.Resource_Thumbnail)" alt="Resource Thumbnail">
+
+                        <div class="caption-full">
+                            <a href='@Url.Action("IncrementDownloadCounter", "Home", new { rID = @resource.Resource_ID, rURL = @resource.Download_URL })'><img class="pull-right" style="height:50px;width:160px;" src="~/Content/download_now.png" /></a>
+                            <h3 style="color:darkblue">
+                                <strong>
+                                    @resource.Resource_Title
+                                </strong>
+                            </h3>
+                            <h5>Grade: @resource.Resource_Grade, Subject: @resource.Resource_Subject</h5>
+                            <p>@resource.Description</p>
+                        </div>
+                        <div class="ratings">
+                            <p class="pull-right">Reviews @ViewBag.ReviewNumbers</p>
+                            <p>
+                                @*@for (int i = 0; i < Convert.ToInt32(@resource.Ratings); i++)
+                                    {
+                                    <span class="glyphicon glyphicon-star"></span>
+                                }
+                                @for (int i = Convert.ToInt32(@resource.Ratings); i < 5; i++)
+                                {
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                }*@
+                                <input id="rating-input" type="number" class="rating "disabled value="@resource.Ratings" data-size="xs" />
+
+                               
+                            </p>
+                        </div>
+                    }
+                    <form action="@Url.Action("RatingsReviewSubmission", "Home")" method="post" id="form1">
+                        <div>
+                            <textarea name="reviewText" id="reviewArea" style="width:80%;"></textarea>
+                        </div>
+                        <!-- Change starability-basic to different class to see animations. !-->
+                        <div>
+                            <input class="span2" name="resourceId" type="hidden" value="@ViewBag.ResourcesDisplayed[0].Resource_ID">
+                            <div class="row">
+                                <div class="col-md-2"><h4>Relevance</h4></div>
+                                <div class="col-md-7">
+                                    <input id="input-21e" name="Relevance" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><h4>Adaptability</h4></div>
+                                <div class="col-md-7">
+                                    <input id="input-21e" name="Adaptability" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><h4>Language</h4></div>
+                                <div class="col-md-7">
+                                    <input id="input-21e" name="Language" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><h4>Pedagogy</h4></div>
+                                <div class="col-md-7">
+                                    <input id="input-21e" name="Pedagogy" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><h4>Design</h4></div>
+                                <div class="col-md-7">
+                                    <input id="input-21e" name="Design" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success" onclick="@("window.location.href='" + @Url.Action("Dummy", "Home") + "'");">Leave a Review</button>
+                    </form>
+
+                </div>
+                <div class="well">
+                    <div class="text-right">
+                        <!-- Calls a jQuery function called sendReview() to call the controller action-->
+
+                    </div>
+
+                    @if (ViewBag.ResourceReviews != null)
+                    {
+                        foreach (var review in ViewBag.ResourceReviews)
+                        {
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input id="rating-input" type="number" class="rating" disabled value="@review.Rating" data-size="xs" />
+
+                                    @review.Name
+                                    <span class="pull-right">@review.TimePosted</span>
+                                    <p>@review.Description</p>
+                                    @if (@review.User_ID == ViewBag.ResourceUser)
+                                    {
+                                        <p><a href="javascript:editReview('@review.User_ID', '@ViewBag.ResourcesDisplayed[0].Resource_ID', '@review.Description');">Edit</a>&nbsp;
+                                        <a href="javascript:deleteReview('@review.User_ID', '@ViewBag.ResourcesDisplayed[0].Resource_ID');">Delete</a></p>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+    <!-- /.container -->
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        var resourceID = @ViewBag.ResourcesDisplayed[0].Resource_ID;
+    </script>
+    <script type="text/javascript">
+
+        // Method gets called when editing a review
+        function editReview(userid, resourceid, description){
+            var review = prompt("Please enter the updated review", description );
+            if (review != null){
+                // Call the method to update the review
+                $.ajax({
+                    url: "/Home/UpdateResourceReview",
+                    type: "POST",
+                    dataType: "json",
+                    data: {userid: userid, resourceid: resourceid, description: review},
+                    success: function(result){
+                        alert(result);
+                        // refresh back the page
+                        window.location.href = '@Url.Action("ResourceDisplay", "Home")';
+                    },
+                    error: function(){
+                        alert("An error occurred while updating the review");
+                    }
+                });
+            }
+            // alert("Method called with params userid : " + userid + " resourceid : " + resourceid);
+        }
+
+        // Method gets called when deleting a review
+        function deleteReview(user_id, resource_id){
+            // alert("Function called with user : " + user_id);
+            var r = confirm("Confirm review deletion?");
+            if(r == true){
+                // alert("Parameters are : " + user_id + " and " + resource_id);
+                $.ajax({
+                    url: "/Home/DeleteReview",
+                    type: "POST",
+                    dataType: "json",
+                    data: {userid: user_id, resourceid: resource_id},
+                    success: function(result){
+                        alert(result);
+                        window.location.href = '@Url.Action("ResourceDisplay", "Home")';
+                    },
+                    error: function(){
+                        alert("An error occurred while deleting the review");
+                    }
+                });
+            } else{
+                alert("Review not deleted");
+            }
+        }
+
+        // Method that redirects to a page with the resource displayed
+        function sendReview() {
+            window.location.href = '@Url.Action("Dummy", "Home")';
+        }
+    </script>
+    @if (ViewBag.Message != null)
+    {
+        <script>
+            $(document).ready(function(){
+                alert('@ViewBag.Message');
+            });
+        </script>
+    }
+</body>
+</html>
