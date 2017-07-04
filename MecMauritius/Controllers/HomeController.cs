@@ -523,6 +523,20 @@ namespace MecMauritius.Controllers
                 return text.Substring(0, chopLength - postfix.Length) + postfix;
         }
 
+        // Method to allow only three words in the title
+        public String ReduceTitleLength(string text, int numberWords, string postfix = "...")
+        {
+            if (text == "" || text == null) return "No Description Provided";
+            if (text == null || text.Split().Length <= 3) return text;
+            // return the first three words of the title
+            else
+            {
+                string result = "";
+                for (int i = 0; i < 3; i++) result = result + " " + text.Split()[i];
+                return result + postfix;
+            }
+        }
+
         //[ValidateAntiForgeryToken]
         [HttpGet]
         public JsonResult GetSchools(string id)
@@ -776,7 +790,7 @@ namespace MecMauritius.Controllers
                             resourcesReturned += 1;
                             models.Add(new DigitalResources
                             {
-                                ResourceTitle = ChopTitle(reader.GetValue(0).ToString(), 25),
+                                ResourceTitle = ReduceTitleLength(reader.GetValue(0).ToString(), 25),
                                 ResourceDescription = Chop(reader.GetValue(1).ToString(), 100),
                                 ResourceThumbnail = reader.GetValue(2).ToString(),
                                 ResourceUrl = new Uri(reader.GetValue(3).ToString(), UriKind.Absolute),

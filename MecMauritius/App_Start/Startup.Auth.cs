@@ -12,6 +12,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.Owin.Security.MicrosoftAccount;
 using Microsoft.Owin.Security.Facebook;
+using Owin.Security.Providers.Yahoo;
 
 namespace MecMauritius
 {
@@ -48,7 +49,7 @@ namespace MecMauritius
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -88,9 +89,15 @@ namespace MecMauritius
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "659821804211461",
-            //   appSecret: "f0cbffe2dc6ffecfd5886334de4b42db");
+
+
+            app.UseFacebookAuthentication(
+               appId: "1728713387393341",
+               appSecret: "0f0eec3af5282d30eac6b40b3530e3b3");
+
+            app.UseYahooAuthentication(
+                "dj0yJmk9NFN5R3RhMEx1RTZmJmQ9WVdrOU1sQTVaWGRCTlRZbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD02ZA--",
+                "555caa087778e9ab3f3de60bb07673929c48413b");
 
             //var facebookOptions = new FacebookAuthenticationOptions()
             //{

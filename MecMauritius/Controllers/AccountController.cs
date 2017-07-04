@@ -174,7 +174,7 @@ namespace MecMauritius.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, firstName = model.Firstname, lastName = model.Lastname, Birthdate = model.Birthdate};
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, firstName = model.Firstname, lastName = model.Lastname, Birthdate = model.Birthdate };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -250,7 +250,7 @@ namespace MecMauritius.Controllers
                 using (SqlCommand sqlCommand = new SqlCommand("addSchoolZoneforUser", sqlConnection))
                 {
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-                    sqlCommand.Parameters.AddWithValue("@userId",userId);
+                    sqlCommand.Parameters.AddWithValue("@userId", userId);
                     sqlCommand.Parameters.AddWithValue("@zoneId", zoneId);
                     sqlCommand.Parameters.AddWithValue("@schoolId", schoolId);
 
@@ -279,7 +279,7 @@ namespace MecMauritius.Controllers
 
             // checks for ids of roles corresponding to one of the following
             // 1. 2001, 2. 2002, 3. 2003, 4. 2004, 5. 2005 and 6. 2006
-            if(role.Equals("2001") || role.Equals("2002") || role.Equals("2003") || role.Equals("2004") || role.Equals("2005") || role.Equals("2006"))
+            if (role.Equals("2001") || role.Equals("2002") || role.Equals("2003") || role.Equals("2004") || role.Equals("2005") || role.Equals("2006"))
             {
                 // request sent to admin to allow access to the user on the platform
                 using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString))
@@ -421,6 +421,7 @@ namespace MecMauritius.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
+            ControllerContext.HttpContext.Session.RemoveAll();
             // Request a redirect to the external login provider
             returnUrl += "/";
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
@@ -492,7 +493,7 @@ namespace MecMauritius.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel {  });
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { });
             }
         }
 
@@ -514,12 +515,20 @@ namespace MecMauritius.Controllers
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
-                
+
                 var email = "";
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info.Login.LoginProvider.Equals("Google") ||  info.Login.LoginProvider.Equals("Microsoft"))
+                if (info.Login.LoginProvider.Equals("Google") || info.Login.LoginProvider.Equals("Microsoft"))
                 {
                     email = info.Email;
+                }
+                else if (info.Login.LoginProvider.Equals("Facebook"))
+                {
+                    email = info.DefaultUserName + "@facebook.com";
+                }
+                else if (info.Login.LoginProvider.Equals("Yahoo"))
+                {
+                    email = info.DefaultUserName + "@yahoo.com";
                 }
                 else
                 {
@@ -529,8 +538,8 @@ namespace MecMauritius.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                
-                var user = new ApplicationUser { UserName = email, Email = email, firstName = model.Firstname, lastName = model.Lastname, Birthdate = model.Birthdate};
+
+                var user = new ApplicationUser { UserName = email, Email = email, firstName = model.Firstname, lastName = model.Lastname, Birthdate = model.Birthdate };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
