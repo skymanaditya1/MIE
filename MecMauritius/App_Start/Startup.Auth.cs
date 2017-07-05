@@ -117,6 +117,7 @@ namespace MecMauritius
                 Scope = { "wl.basic", "wl.emails" }
             });
 
+
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
                 ClientId = "635955535955-7inojsgo8ugtg5jkodg0ek7krlgvnulq.apps.googleusercontent.com",

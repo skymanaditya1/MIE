@@ -12,6 +12,11 @@
     <NameOfLastUsedPublishProfile>MecforMie - Web Deploy %282%29</NameOfLastUsedPublishProfile>
     <WebStackScaffolding_DbContextTypeFullName>MecMauritius.Models.ResourceTypeDBContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44303</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
