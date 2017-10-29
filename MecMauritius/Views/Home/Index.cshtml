@@ -20,6 +20,12 @@
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
     <style>
+        .dropdown-menu {
+            height: auto;
+            max-height: 200px;
+            overflow-x: hidden;
+        }
+
         .paginate {
             padding: 0;
             margin: 0;
@@ -32,7 +38,11 @@
                 margin: 10px 0;
             }
 
-         hr { width:100%; height:1px; background: #fff }
+        hr {
+            width: 100%;
+            height: 1px;
+            background: #fff
+        }
 
         .box {
             width: 180px;
@@ -63,7 +73,7 @@
                 float: right;
             }
 
-            .box .downloadsText{
+            .box .downloadsText {
                 font-size: 11px;
                 float: right;
             }
@@ -99,15 +109,15 @@
                 color: #FF4500;
             }
 
-            a {
-               font-size: 12px;
-               margin-top: 5px;
-            }
+        a {
+            font-size: 12px;
+            margin-top: 5px;
+        }
 
-            .box .desc {
-                font-size: 12px;
-                color: #616161;
-            }
+        .box .desc {
+            font-size: 12px;
+            color: #616161;
+        }
 
         .horizontal {
             display: inline;
@@ -243,8 +253,10 @@
                                 <br />
                                 <input class="form-control" id="ResourceTitle" name="ResourceTitle" type="text" placeholder="Enter Resource Title">
                                 <br />
+                                <input class="form-control" id="Author" name="Author" type="text" placeholder="Enter Author Name">
+                                <br />
+                                <label>Resource is a link? <input class="checkbox-inline" type="checkbox" id="LinkToggle" /></label>
                                 <textarea class="form-control" rows="6" id="ResourceDescription" name="ResourceDescription" placeholder="Enter Resource Description... (upto 255 characters) Accepted Formats: Common images, videos, audio, pdf, documents:Eg. Excel, Word, Powerpoint, Flash, Compressed: Eg. *.rar, *.zip, *.ubz For all other unaccepted formats please upload as zip / compressed file"></textarea>
-
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -288,6 +300,11 @@
                             </div>
                             <br />
                         </div>
+                        <div id="link">
+                            <input class="form-control" id="Link" name="Link" type="text" placeholder="Paste Link here...">
+                            <br />
+                            <input class="btn btn-primary" type="submit" />
+                        </div>
                         <div id="drop">
                             Drop Here
                             <a>Browse</a>
@@ -307,8 +324,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <label>Please tick to confirm that you have read the upload agreement and agreed to upload the resource under 
-                    the Creative Commons License.</label>
+                    <label>
+                        Please tick to confirm that you have read the upload agreement and agreed to upload the resource under
+                        the Creative Commons License.
+                    </label>
                     <button class="btn btn-success" data-dismiss="modal">Ok</button>
                     <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
                 </div>
@@ -317,11 +336,8 @@
     </div>
 
     <!--This is the checkbox dialog if the upload agreement checkbox is not checked end-->
-
     <!--This is the upload agreement dialog box-->
-
     <!--Button to enable / show the upload agreement dialog-->
-
     <!--<a id="uploadAgreementButton" class="btn btn-success" data-toggle="modal" data-target=".bootstrapToggle"><span class="glyphicon glyphicon-eye-close"></span>
         Show Dialog Modal
     </a>
@@ -335,16 +351,16 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        <img src="~/Content/Icons/attribution.png" width="64" height="64" align="left"/><br />
+                        <img src="~/Content/Icons/attribution.png" width="64" height="64" align="left" /><br />
                         <b>Attribution</b> - Users must give you appropriate credit, provide a link to the license, and indicate if changes were made.
                     </p>
                     <p>
-                        <img src="~/Content/Icons/non_commercial.png" width="64" height="64" align="left"/>
+                        <img src="~/Content/Icons/non_commercial.png" width="64" height="64" align="left" />
                         <br />
                         <b>NonCommercial</b> - Users must not use the material for commercial purposes.
                     </p>
                     <p>
-                        <img src="~/Content/Icons/share_alike.png" width="64" height="64" align="left"/>
+                        <img src="~/Content/Icons/share_alike.png" width="64" height="64" align="left" />
                         <br /><b>ShareAlike</b> - If users remix, transform, or build upon the material, users must distribute your contributions under the same license as the original.
                     </p>
 
@@ -354,34 +370,35 @@
     </div>
 
     <!--This is the end of the upload agreement dialog box-->
-
     <!-- This is the feedback button code-->
-    <a class="btn btn-success" data-toggle="modal" data-target=".bootstrapmodal"><span class="glyphicon glyphicon-eye-open"></span>
+    <a class="btn btn-success" data-toggle="modal" data-target=".bootstrapmodal">
+        <span class="glyphicon glyphicon-eye-open"></span>
         Write Feedback
     </a>
 
-        <div class="modal fade bootstrapmodal">
-            @using (Html.BeginForm("ResourceAbuseDescription", "Home")) { 
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button data-dismis="modal" class="close"><span>&times;</span></button>
-                            <div class="modal-title"><h4>Report Abuse</h4></div>
-                        </div>
-                        <div class="modal-body">
-                            @Html.Label("Resource Title")<span style="color:red"> *</span><p></p><input class="input-sm" placeholder="Resource Title" type="text" name="resourceName" /><br /><br />
-                            @Html.Label("Resource Description")<span style="color:red"> *</span><p></p><input class="input-sm" placeholder="Resource Description" type="text" name="resourceDescription" /><br /><br />
-                            @Html.Label("Additional Feedback")<p></p><input class="input-sm" placeholder="Feedback" type="text" name="resourceFeedback" /><br /><br />
-                        </div>
-                        <div class="modal-footer">
-                            <input type="submit" class="btn btn-primary" value="Submit" />
-                            <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                        </div>
+    <div class="modal fade bootstrapmodal">
+        @using (Html.BeginForm("ResourceAbuseDescription", "Home"))
+        {
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button data-dismis="modal" class="close"><span>&times;</span></button>
+                        <div class="modal-title"><h4>Report Abuse</h4></div>
+                    </div>
+                    <div class="modal-body">
+                        @Html.Label("Resource Title")<span style="color:red"> *</span><p></p><input class="input-sm" placeholder="Resource Title" type="text" name="resourceName" /><br /><br />
+                        @Html.Label("Resource Description")<span style="color:red"> *</span><p></p><input class="input-sm" placeholder="Resource Description" type="text" name="resourceDescription" /><br /><br />
+                        @Html.Label("Additional Feedback")<p></p><input class="input-sm" placeholder="Feedback" type="text" name="resourceFeedback" /><br /><br />
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                        <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
-            }
-        </div>
-        <!-- Feedback button code finished-->
+            </div>
+        }
+    </div>
+    <!-- Feedback button code finished-->
 </body>
 </html>
 
@@ -390,9 +407,6 @@
         // alert("Hello World Application")
         $('#uploadAgreementDialog').modal('show');
     }
-</script>
-
-<script type="text/javascript">
     // Method to fetch resources with filters applied
     function fetch() {
         $("#resource_head").empty();
@@ -455,7 +469,7 @@
                         $("#resource_head").append(append_data);
                     });
                 }
-                
+
                 $("[name='rating bar']").rating('refresh', { disabled: true, showClear: false, showCaption: false });
                 $('#resource_head').data('paginate').kill();
                 $('#resource_head').paginate({ perPage: 9, 'autoScroll': false });
@@ -503,6 +517,16 @@
     var resourceTypeUpload = "Select Resource Type";
     var resourceDescription = "";
     var resourceTitle = "";
+    var linkToggle = false;
+
+    $("#LinkToggle").on('change', function () {
+        if ($(this).is(':checked')) {
+            linkToggle = true;
+        } else {
+            linkToggle = false;
+        }
+        validateForm();
+    });
 
     $("#reset").click(function () {
         chosenGrade = chosenCourse = chosenResourceType = "";
@@ -522,7 +546,6 @@
         $('#GUplBut').html($(this).text());
         $('#GForm').val($(this).text());
         gradeUpload = $(this).text();
-        //validateForm();
     });
 
     $("#CourseUpload li").on('click', function () {
@@ -530,20 +553,32 @@
         $('#CUplBut').html($(this).text());
         $('#CForm').val($(this).text());
         courseUpload = $(this).text();
-        //validateForm();
     });
 
     function validateForm() {
 
-        if (gradeUpload == "Select Grade" || courseUpload == "Select Subject" || $("#ResourceTitle").val() == "" || $("#ResourceDescription").val() == "") {
-            $("#drop").hide();
+        if (gradeUpload == "Select Grade" ||
+            courseUpload == "Select Subject" ||
+            $("#ResourceTitle").val() == "" ||
+            $("#ResourceDescription").val() == "" ||
+            $("#Author").val() == "") {
+
             $("#success").hide();
             $("#warning").show();
-        }
-        else {
+
+            $("#drop").hide();
+            $("#link").hide();
+        } else {
             $("#warning").hide();
             $("#success").show();
-            $("#drop").show();
+            if (linkToggle) {
+                $("#link").show();
+                $("#drop").hide();
+            } else {
+                $("#link").hide();
+                $("#drop").show();
+            }
+            
         }
 
         // Check if the upload agreement checkbox is not checked
@@ -572,7 +607,7 @@
 
     $(document).ready(function () {
         $("#GradeList, #CourseList, #ResourceType").change(fetch);
-        $("#drop, #uploadTbl").hide();
+        $("#drop, #uploadTbl, #link").hide();
     });
 
     $(document).ready(function () {

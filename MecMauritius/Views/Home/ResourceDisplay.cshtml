@@ -54,11 +54,13 @@
 
                         <div class="caption-full">
                             <a href='@Url.Action("IncrementDownloadCounter", "Home", new { rID = @resource.Resource_ID, rURL = @resource.Download_URL })'><img class="pull-right" style="height:50px;width:160px;" src="~/Content/download_now.png" /></a>
+                            @*<a href='@Url.Action("ResourcePreview", "Home", new { ResourceType = @resource.ResourceType, ResourceUrl = @resource.Download_URL})' target="_blank"><img class="pull-right" style="height:50px;width:160px;" src="~/Content/Preview.png" /></a>*@                            
                             <h3 style="color:darkblue">
                                 <strong>
                                     @resource.Resource_Title
                                 </strong>
                             </h3>
+                            <h5>Author: @resource.Author</h5>
                             <h5>Grade: @resource.Resource_Grade, Subject: @resource.Resource_Subject</h5>
                             <p>@resource.Description</p>
                         </div>
@@ -163,6 +165,12 @@
         var resourceID = @ViewBag.ResourcesDisplayed[0].Resource_ID;
     </script>
     <script type="text/javascript">
+
+        function previewLink(resourceType, resourceUrl) {
+            
+            var win = window.open(url, '_blank');
+            win.focus();
+        }
 
         // Method gets called when editing a review
         function editReview(userid, resourceid, description){

@@ -17,6 +17,8 @@ namespace MecMauritius.Models
         public string Download_URL { get; set; }
         public string Description { get; set; }
         public string Resource_ID { get; set; }
+        public string Author { get; set; }
+        public string ResourceType { get; set; }
         // fields for the feedback / reviews associated with each resource to be added
     }
 }

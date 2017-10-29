@@ -40,8 +40,8 @@ namespace MecMauritius.Controllers
                 return RedirectToAction("Login", "Account");
 
             ViewBag.ResourceTypes = ResourceTypeDb.ResourceTypes.ToList();
-            ViewBag.Grades = GradeDb.Grades.ToList();
-            ViewBag.Courses = CourseDb.Courses.ToList();
+            ViewBag.Grades = GradeDb.Grades.OrderBy(g => g.Title).ToList();
+            ViewBag.Courses = CourseDb.Courses.OrderBy(c => c.Title).ToList();
 
             if (User.Identity.IsAuthenticated)
             {
@@ -185,6 +185,13 @@ namespace MecMauritius.Controllers
             return View();
         }
 
+        public ActionResult ResourcePreview(string ResourceType, string ResourceUrl)
+        {
+            if (ResourceType.Equals("Video"))
+                ViewBag.PreviewTag = "<video src='" + ResourceUrl + "' autoplay='autoplay' style='width:100%; height:100%'></video>";
+            return View();
+        }
+
         // Controller action to display resource details using the resourceID of the resource
         public ActionResult ResourceDisplay(string ID)
         {
@@ -211,7 +218,9 @@ namespace MecMauritius.Controllers
                             Downloads = reader.GetValue(5).ToString(),
                             Download_URL = reader.GetValue(6).ToString(),
                             Description = reader.GetValue(7).ToString(),
-                            Resource_ID = ID
+                            Author = reader.GetValue(8).ToString(),
+                            Resource_ID = ID,
+                            ResourceType = reader.GetValue(9).ToString()
                         });
                     }
                 }

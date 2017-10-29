@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -154,6 +155,7 @@
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.4.403061554\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
@@ -260,6 +262,24 @@
     <Compile Include="Handler1.ashx.cs">
       <DependentUpon>Handler1.ashx</DependentUpon>
     </Compile>
+    <Compile Include="MecMauritiusCodeFirstModels\Cours.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\DigitalResource.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\EducatorConfirmation.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\EducatorSector.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\FileNameExtensionsHandled.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\Grade.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\MecMaurtiusCodeFirstModel.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\Query.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\ReportAbuse.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\ResourceReview.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\ResourceType.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\School.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\Subject.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\sysdiagram.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\tblEmployee.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\UserSchoolZone.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\ZONE.cs" />
+    <Compile Include="MecMauritiusCodeFirstModels\ZonesSchool.cs" />
     <Compile Include="Migrations\201608281734140_InitialCreate.cs" />
     <Compile Include="Migrations\201608281734140_InitialCreate.Designer.cs">
       <DependentUpon>201608281734140_InitialCreate.cs</DependentUpon>
@@ -303,13 +323,11 @@
     <Compile Include="SchoolZoneHandler.ashx.cs">
       <DependentUpon>SchoolZoneHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Services\CloudStorage.cs" />
+    <Compile Include="Services\FileUploadUtils.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-MecMauritius-20160822034217.mdf" />
-    <Content Include="App_Data\aspnet-MecMauritius-20160822034217_log.ldf">
-      <DependentUpon>aspnet-MecMauritius-20160822034217.mdf</DependentUpon>
-    </Content>
     <Content Include="assets\css\style.css" />
     <Content Include="assets\img\border-image.png" />
     <Content Include="assets\img\icons.png" />
@@ -338,6 +356,7 @@
     <Content Include="Content\Icons\yahoo-logo.png" />
     <Content Include="Content\MIE.png" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Preview.png" />
     <Content Include="Content\StarRating\css\star-rating.css" />
     <Content Include="Content\StarRating\css\star-rating.min.css" />
     <Content Include="Content\StarRating\examples\index.html" />
@@ -557,8 +576,10 @@
     <Content Include="Views\Home\ErrorView.cshtml" />
     <Content Include="Views\Admin\ManageSiteAdmins.cshtml" />
     <Content Include="Views\Admin\ResourcesUploaded.cshtml" />
+    <Content Include="Views\Home\ResourcePreview.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Content\AdminUsers\" />
     <Folder Include="Content\Resources\" />
     <Folder Include="obj\Debug\TempPE\" />
